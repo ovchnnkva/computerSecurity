@@ -39,7 +39,6 @@ public class Cryptoanalyzer {
             char charForReplace = text.charAt(i);
             if(alphabet.contains(charForReplace)) {
                 int indexChar = alphabet.indexOf(charForReplace);
-
                     if(indexChar - key + alphabet.size() > 32){
                         charForReplace = alphabet.get(indexChar - key);
                     }
