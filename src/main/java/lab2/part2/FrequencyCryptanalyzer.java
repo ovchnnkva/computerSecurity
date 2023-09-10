@@ -1,3 +1,5 @@
+package lab2.part2;
+
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -37,7 +39,6 @@ public class FrequencyCryptanalyzer {
 
         Map<Character, Double> correspondences = decrypted.entrySet()
                 .stream()
-//                .filter(e -> (encryptedFrequence - e.getValue() >= 0.0000))
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         entry -> Math.abs(encryptedFrequence - entry.getValue())
