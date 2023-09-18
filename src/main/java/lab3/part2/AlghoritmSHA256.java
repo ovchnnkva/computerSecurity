@@ -16,6 +16,11 @@ public class AlghoritmSHA256 {
     private long h3 = Long.valueOf("10100101010011111111010100111010", 2);
     private long h4 = Long.valueOf("01010001000011100101001001111111", 2);
 
+    /**
+     * Основной алгоритм преобразования строки к ключу SHA-256
+     * @param text исходный текст
+     * @return ключ SHA-256
+     */
     public String hash(char[] text) {
         String[] converted = changingIndexesAtEndOfArray(to32bit(fillingUpToMultiplicityOf512(charsToBinary(text))));
 
@@ -60,6 +65,10 @@ public class AlghoritmSHA256 {
         return getHexString();
     }
 
+    /**
+     * Соединение хешей в строку
+     * @return SHA-256 ключ
+     */
     private String getHexString() {
 
         return Long.toHexString(h0) +
@@ -68,6 +77,12 @@ public class AlghoritmSHA256 {
                 Long.toHexString(h3) +
                 Long.toHexString(h4);
     }
+
+    /**
+     * Преобразование символов к бинарным 8-ми битным словам
+     * @param text исходный текст
+     * @return бинарная строка
+     */
     private String charsToBinary(char[] text) {
         StringBuilder binaryText = new StringBuilder();
         for (char c : text) {
@@ -80,6 +95,11 @@ public class AlghoritmSHA256 {
         return binaryText.toString();
     }
 
+    /**
+     * Заполнение бинарной строки до 512 бит
+     * @param text
+     * @return 512 битная бинарная строка
+     */
     private String fillingUpToMultiplicityOf512(String text) {
         StringBuilder binaryString = new StringBuilder(text);
         binaryString.append("1");
@@ -91,13 +111,16 @@ public class AlghoritmSHA256 {
             }
             binaryString.append("0");
         }
-        log.info(binaryString.toString());
         return addLengthToBinary(binaryString);
     }
 
+    /**
+     * Преобразования 8-ми битных слов к 32-х битным
+     * @param text 8-ми битные бинарные слова
+     * @return 32-х битные бинарные слова
+     */
     private List<String> to32bit(String text) {
         String[] mass8Bit = text.split(" ");
-        log.info("length mass8bit " + mass8Bit.length);
         List<String> mass32bit = new ArrayList<>();
         for (int i = 0; i < mass8Bit.length; i += 4) {
             StringBuilder word = new StringBuilder();
@@ -110,6 +133,11 @@ public class AlghoritmSHA256 {
         return fillingUpTo64Words(mass32bit);
     }
 
+    /**
+     * Дополнение до 64-х 32-ух битных слов
+     * @param words список бинарных слов
+     * @return список из 64-х бинарных 32-ух битных слов
+     */
     private List<String> fillingUpTo64Words(List<String> words) {
         int countNewWords = 64 - words.size();
         for (int i = 0; i < countNewWords; i++) {
@@ -137,6 +165,11 @@ public class AlghoritmSHA256 {
         return binaryArray;
     }
 
+    /**
+     * Добавление значения длины строки в виде бинарного 64-битного слова
+     * @param binaryString строка, к которой добравляется значение длины исходного текста
+     * @return бинарное представление длины входной строки
+     */
     private String addLengthToBinary(StringBuilder binaryString) {
         StringBuilder binaryLength = new StringBuilder(Integer.toBinaryString(binaryString.length()).replaceAll(" ", ""));
         int countAdditions = 64 - binaryLength.length();
@@ -152,6 +185,11 @@ public class AlghoritmSHA256 {
         return binaryString.append(binaryLength).toString();
     }
 
+    /**
+     * Дополнение до 8 бит
+     * @param binaryWord бинарное слово
+     * @return 8-ми битное бинарное слово
+     */
     private String fillingUpTo8bit(String binaryWord){
         StringBuilder resultStrBuilder = new StringBuilder();
         int fillingUpCount = 32 - binaryWord.length();
