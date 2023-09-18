@@ -21,5 +21,7 @@ public class Lab3p2 {
     @Test
     public void testSHA256() {
         log.info(alghoritmSHA256.hash(testText1));
+
+
     }
 }
