@@ -19,7 +19,7 @@ public class AlghoritmSHA256 {
     /**
      * Основной алгоритм преобразования строки к ключу SHA-256
      * @param text исходный текст
-     * @return ключ SHA-256
+     * @return сообщение SHA-256
      */
     public String hash(char[] text) {
         String[] converted = changingIndexesAtEndOfArray(to32bit(fillingUpToMultiplicityOf512(charsToBinary(text))));
@@ -67,7 +67,7 @@ public class AlghoritmSHA256 {
 
     /**
      * Соединение хешей в строку
-     * @return SHA-256 ключ
+     * @return SHA-256 сообщение
      */
     private String getHexString() {
 
